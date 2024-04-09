@@ -1,7 +1,9 @@
-function verifyConditions(pluginConfig, context) {
+export function verifyConditions(pluginConfig, context) {
+    const { logger } = context;
+    logger.log(pluginConfig);
 }
 
-function prepare(pluginConfig, context) {
+export function prepare(pluginConfig, context) {
+    const { logger } = context;
+    logger.log(pluginConfig);
 }
-
-module.exports = { verifyConditions, prepare };
