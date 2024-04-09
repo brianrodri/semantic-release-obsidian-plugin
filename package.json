@@ -1,0 +1,24 @@
+{
+  "name": "semantic-release-obsidian-plugin",
+  "version": "1.0.0",
+  "description": "semantic-release plugin to automate release publishing for Obsidian plugins",
+  "main": "index.js",
+  "repository": "https://github.com/brianrodri/semantic-release-obsidian-plugin.git",
+  "author": "Brian Rodriguez <brian@brianrodri.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "watch": "vitest watch"
+  },
+  "dependencies": {
+    "execa": "^8.0.1"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.4.0",
+    "vitest": "^1.4.0"
+  },
+  "peerDependencies": {
+    "semantic-release": ">=18.0.0"
+  }
+}
