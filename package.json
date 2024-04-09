@@ -2,6 +2,7 @@
   "name": "semantic-release-obsidian-plugin",
   "version": "1.0.0",
   "description": "semantic-release plugin to automate release publishing for Obsidian plugins",
+  "type": "module",
   "main": "index.js",
   "repository": "https://github.com/brianrodri/semantic-release-obsidian-plugin.git",
   "author": "Brian Rodriguez <brian@brianrodri.com>",
