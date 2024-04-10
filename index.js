@@ -1,9 +1,16 @@
-export function verifyConditions(pluginConfig, context) {
-    const { logger } = context;
-    logger.log(pluginConfig);
+import { prepare as prepareImpl } from "./src/prepare.js";
+import { verifyConditions as verifyConditionsImpl } from "./src/verify.js";
+
+let verified = false;
+
+export async function verifyConditions(pluginConfig, context) {
+    await verifyConditionsImpl(pluginConfig, context);
+    verified = true;
 }
 
-export function prepare(pluginConfig, context) {
-    const { logger } = context;
-    logger.log(pluginConfig);
+export async function prepare(pluginConfig, context) {
+    if (!verified) {
+        await verifyConditions(pluginConfig, context);
+    }
+    await prepareImpl(pluginConfig, context);
 }
