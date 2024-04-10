@@ -24,6 +24,6 @@
     "vitest": "^1.4.0"
   },
   "peerDependencies": {
-    "semantic-release": ">=18.0.0"
+    "semantic-release": "^23.0.8"
   }
 }
