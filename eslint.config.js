@@ -10,9 +10,6 @@ export default [
 
     {
         plugins: { prettier: prettierPlugin },
-        rules: {
-            ...prettierConfig.rules,
-            "prettier/prettier": "error",
-        },
+        rules: { ...prettierConfig.rules, "prettier/prettier": "error" },
     },
 ];
