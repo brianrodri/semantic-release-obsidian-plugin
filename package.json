@@ -13,6 +13,7 @@
     "watch": "vitest watch"
   },
   "dependencies": {
+    "aggregate-error": "^5.0.0",
     "execa": "^8.0.1"
   },
   "devDependencies": {
