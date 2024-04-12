@@ -19,7 +19,7 @@ vi.mock("fs/promises", () => ({
 }));
 
 test("writes new version to all files", async () => {
-    await expect(prepare({}, { nextRelease: { version: "2.0.0" } })).resolves.not.toThrow();
+    await expect(prepare({}, { nextRelease: { version: "2.0.0" } })).resolves.toBeUndefined();
 
     expect(writeFile).toHaveBeenCalledWith("package.json", written({ version: "2.0.0" }));
     expect(writeFile).toHaveBeenCalledWith("package-lock.json", written({ version: "2.0.0" }));
