@@ -13,11 +13,11 @@ test("valid files", async () => {
 test("invalid files", async () => {
     stat.mockResolvedValue({ isFile: () => false });
 
-    await expect(verifyConditions()).rejects.toThrow(/Not a file/);
+    await expect(verifyConditions()).rejects.toThrowError(/Not a file/);
 });
 
 test("missing files", async () => {
     stat.mockRejectedValue(new Error("File is missing"));
 
-    await expect(verifyConditions()).rejects.toThrow(/File is missing/);
+    await expect(verifyConditions()).rejects.toThrowError(/File is missing/);
 });
