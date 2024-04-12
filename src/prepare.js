@@ -6,13 +6,13 @@ export async function prepare(_, context) {
     const fileMap = await loadFileMap();
     const { minAppVersion } = fileMap.get("manifest.json");
 
-    fileMap.forEach((content, file) => {
+    fileMap.forEach((json, file) => {
         switch (file) {
             case "versions.json":
-                content[version] = minAppVersion;
+                json[version] = minAppVersion;
                 break;
             default:
-                content.version = version;
+                json.version = version;
                 break;
         }
     });
@@ -29,5 +29,5 @@ async function loadFileMap() {
 async function saveFileMap(fileMap) {
     const entries = [...fileMap.entries()];
 
-    await Promise.all(entries.map(([file, content]) => writeFile(file, JSON.stringify(content, null, 4) + "\n")));
+    await Promise.all(entries.map(([file, json]) => writeFile(file, JSON.stringify(json, null, 4) + "\n")));
 }
