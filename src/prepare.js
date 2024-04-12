@@ -1,32 +1,33 @@
 import { readFile, writeFile } from "fs/promises";
+import { getPluginFiles } from "./util";
 
 export async function prepare(_, context) {
     const version = context.nextRelease.version;
+    const fileMap = await loadFileMap();
+    const { minAppVersion } = fileMap.get("manifest.json");
 
-    const [packageJson, packageLockJson, manifestJson, versionsJson] = await Promise.all([
-        load("package.json"),
-        load("package-lock.json"),
-        load("manifest.json"),
-        load("versions.json"),
-    ]);
+    fileMap.forEach((content, file) => {
+        switch (file) {
+            case "versions.json":
+                content[version] = minAppVersion;
+                break;
+            default:
+                content.version = version;
+                break;
+        }
+    });
 
-    packageJson.version = version;
-    packageLockJson.version = version;
-    manifestJson.version = version;
-    versionsJson[version] = manifestJson.minAppVersion;
-
-    await Promise.all([
-        save("package.json", packageJson),
-        save("package-lock.json", packageLockJson),
-        save("manifest.json", manifestJson),
-        save("versions.json", versionsJson),
-    ]);
+    await saveFileMap(fileMap);
 }
 
-async function load(file) {
-    return JSON.parse(await readFile(file));
+async function loadFileMap() {
+    const entries = await Promise.all(getPluginFiles().map(async (file) => [file, JSON.parse(await readFile(file))]));
+
+    return new Map(entries);
 }
 
-async function save(file, content) {
-    await writeFile(file, JSON.stringify(content, null, 4) + "\n");
+async function saveFileMap(fileMap) {
+    const entries = [...fileMap.entries()];
+
+    await Promise.all(entries.map(([file, content]) => writeFile(file, JSON.stringify(content, null, 4) + "\n")));
 }

@@ -1,10 +1,9 @@
 import AggregateError from "aggregate-error";
 import { stat } from "fs/promises";
-
-const FILES = ["package.json", "package-lock.json", "manifest.json", "versions.json"];
+import { getPluginFiles } from "./util";
 
 export async function verifyConditions() {
-    const outcomes = await Promise.allSettled(FILES.map(verifyFile));
+    const outcomes = await Promise.allSettled(getPluginFiles().map(verifyIsFile));
     const errors = outcomes.filter((o) => o.status === "rejected").map((o) => o.reason);
 
     if (errors.length > 0) {
@@ -12,9 +11,10 @@ export async function verifyConditions() {
     }
 }
 
-async function verifyFile(file) {
-    if ((await stat(file)).isFile()) {
-        return;
+async function verifyIsFile(file) {
+    const fileStat = await stat(file);
+
+    if (!fileStat.isFile()) {
+        throw new Error(`Not a file: "${file}"`);
     }
-    throw new Error(`Not a file: "${file}"`);
 }
