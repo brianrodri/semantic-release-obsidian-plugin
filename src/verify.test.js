@@ -7,7 +7,7 @@ vi.mock("fs/promises", () => ({ stat: vi.fn() }));
 test("valid files", async () => {
     stat.mockResolvedValue({ isFile: () => true });
 
-    await expect(verifyConditions()).resolves.not.toThrow();
+    await expect(verifyConditions()).resolves.toBeUndefined();
 });
 
 test("invalid files", async () => {
