@@ -1,6 +1,6 @@
 import AggregateError from "aggregate-error";
 import { stat } from "fs/promises";
-import { getPluginFiles } from "./util";
+import { getPluginFiles } from "./util.js";
 
 export async function verifyConditions() {
     const outcomes = await Promise.allSettled(getPluginFiles().map(verifyIsFile));

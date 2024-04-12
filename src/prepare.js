@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "fs/promises";
-import { getPluginFiles } from "./util";
+import { getPluginFiles } from "./util.js";
 
 export async function prepare(_, context) {
     const version = context.nextRelease.version;
