@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "fs/promises";
 import { getPluginFiles } from "./util.js";
+import isPrerelease from "./is-prerelease.js";
 
 export async function prepare(_, context) {
     const version = context.nextRelease.version;
@@ -10,6 +11,12 @@ export async function prepare(_, context) {
         switch (file) {
             case "versions.json":
                 json[version] = minAppVersion;
+                break;
+            case "manifest.json":
+                // Don't touch manifest.json in case of pre-release
+                if (!isPrerelease(context.branch)) {
+                    json.version = version;
+                }
                 break;
             default:
                 json.version = version;
