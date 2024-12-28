@@ -7,6 +7,13 @@ export async function prepare(_, context) {
     const fileMap = await loadFileMap();
     const { minAppVersion } = fileMap.get("manifest.json");
 
+    // Pre-release, add `manifest-beta.json` key to filemap
+    if (isPrerelease(context.branch)) {
+        fileMap.set("manifest-beta.json", {
+            ...fileMap.get("manifest.json"),
+        });
+    }
+
     fileMap.forEach((json, file) => {
         switch (file) {
             case "versions.json":
