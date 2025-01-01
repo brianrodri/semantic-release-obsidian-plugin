@@ -7,6 +7,7 @@ export async function prepare(_, context) {
     const fileMap = await loadFileMap();
     const { minAppVersion } = fileMap.get("manifest.json");
 
+    // TODO(TfTHacker/obsidian42-brat#93): Remove if BRAT updates to GitHub release based workings
     // Pre-release, add `manifest-beta.json` key to filemap
     if (isPrerelease(context.branch)) {
         fileMap.set("manifest-beta.json", {
