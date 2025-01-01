@@ -1,29 +1,39 @@
 {
-  "name": "semantic-release-obsidian-plugin",
-  "version": "1.0.0",
-  "description": "semantic-release plugin to automate release publishing for Obsidian plugins",
-  "type": "module",
-  "main": "index.js",
-  "repository": "https://github.com/brianrodri/semantic-release-obsidian-plugin.git",
-  "author": "Brian Rodriguez <brian@brianrodri.com>",
-  "license": "MIT",
-  "scripts": {
-    "test": "vitest run",
-    "coverage": "vitest run --coverage",
-    "watch": "vitest watch"
-  },
-  "dependencies": {
-    "aggregate-error": "^5.0.0",
-    "execa": "^9.5.2"
-  },
-  "devDependencies": {
-    "@vitest/coverage-v8": "^2.1.8",
-    "eslint": "^9.17.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "vitest": "^2.1.8"
-  },
-  "peerDependencies": {
-    "semantic-release": "^23.0.8"
-  }
+    "name": "semantic-release-obsidian-plugin",
+    "version": "1.0.0",
+    "description": "semantic-release plugin to automate release publishing for Obsidian plugins",
+    "type": "module",
+    "main": "index.js",
+    "repository": "https://github.com/brianrodri/semantic-release-obsidian-plugin.git",
+    "author": "Brian Rodriguez <brian@brianrodri.com>",
+    "license": "MIT",
+    "scripts": {
+        "prepare": "husky",
+        "lint": "eslint .",
+        "lint:commit": "commitlint --edit",
+        "format": "prettier --write .",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "watch": "vitest --watch",
+        "watch:coverage": "vitest --watch --coverage"
+    },
+    "dependencies": {
+        "aggregate-error": "^5.0.0",
+        "execa": "^9.5.2"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^19.6.1",
+        "@commitlint/config-conventional": "^19.6.0",
+        "@eslint/eslintrc": "^3.2.0",
+        "@eslint/js": "^9.17.0",
+        "@vitest/coverage-v8": "^2.1.8",
+        "commitlint": "^19.6.1",
+        "eslint": "^9.17.0",
+        "husky": "^9.1.7",
+        "prettier": "^3.4.2",
+        "vitest": "^2.1.8"
+    },
+    "peerDependencies": {
+        "semantic-release": "^23.0.8"
+    }
 }
