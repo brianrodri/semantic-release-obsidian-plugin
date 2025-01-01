@@ -2,19 +2,19 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-      - name: Install dependencies
-        run: npm clean-install
-      - name: Audit dependencies
-        run: npm audit && npm audit signatures
-      - name: Audit code coverage
-        run: npm run coverage
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: latest
+            - name: Install dependencies
+              run: npm clean-install
+            - name: Audit dependencies
+              run: npm audit && npm audit signatures
+            - name: Audit code coverage
+              run: npm run coverage

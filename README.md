@@ -33,11 +33,11 @@ The plugin can be configured in the [`semantic-release` configuration file](http
 
 When `semantic-release` runs, this plugin will update the following files according to Obsidian's versioning scheme:
 
--   `package.json`
--   `package-lock.json`
--   `manifest.json`
--   `manifest-beta.json`
--   `versions.json`
+- `package.json`
+- `package-lock.json`
+- `manifest.json`
+- `manifest-beta.json`
+- `versions.json`
 
 ## Beta Release Support with BRAT
 
@@ -45,12 +45,12 @@ When running `semantic-release` on a pre-release branch (e.g. `beta`), the plugi
 
 To make BRAT detect your beta versions, choose one approach:
 
--   **Manual Beta Sync**
+- **Manual Beta Sync**
 
-    -   After each beta release, copy `manifest-beta.json` to your default branch
-    -   Requires manual intervention but maintains standard branch structure
+    - After each beta release, copy `manifest-beta.json` to your default branch
+    - Requires manual intervention but maintains standard branch structure
 
--   **Beta Branch as Default**
-    -   Set `beta` as your default GitHub branch
-    -   Beta releases are automatically detected
-    -   Requires syncing `manifest.json` from release branches back to `beta`
+- **Beta Branch as Default**
+    - Set `beta` as your default GitHub branch
+    - Beta releases are automatically detected
+    - Requires syncing `manifest.json` from release branches back to `beta`
