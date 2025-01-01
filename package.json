@@ -9,7 +9,7 @@
     "license": "MIT",
     "scripts": {
         "prepare": "husky",
-        "lint": "eslint .",
+        "lint": "eslint . && prettier --check .",
         "lint:commit": "commitlint --edit",
         "format": "prettier --write .",
         "test": "vitest run",

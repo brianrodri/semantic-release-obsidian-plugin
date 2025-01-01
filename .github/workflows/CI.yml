@@ -16,5 +16,7 @@ jobs:
               run: npm clean-install
             - name: Audit dependencies
               run: npm audit && npm audit signatures
+            - name: Audit code style
+              run: npm run lint
             - name: Audit code coverage
-              run: npm run coverage
+              run: npm run test:coverage

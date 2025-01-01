@@ -22,10 +22,6 @@ jobs:
                   node-version: latest
             - name: Install dependencies
               run: npm clean-install
-            - name: Audit dependencies
-              run: npm audit && npm audit signatures
-            - name: Audit code coverage
-              run: npm run coverage
             - name: Release
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
