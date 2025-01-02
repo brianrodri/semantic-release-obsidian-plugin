@@ -22,7 +22,7 @@ The plugin can be configured in the [`semantic-release` configuration file](http
     "plugins": [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
-        "brianrodri/semantic-release-obsidian-plugin"
+        "semantic-release-obsidian-plugin"
     ],
     "tagFormat": "${version}"
 }
