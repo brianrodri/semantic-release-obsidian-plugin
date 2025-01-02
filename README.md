@@ -41,7 +41,7 @@ When `semantic-release` runs, this plugin will update the following files accord
 
 ## Beta Release Support with BRAT
 
-When running `semantic-release` on a pre-release branch (e.g. `beta`), the plugin updates only `manifest-beta.json` and `versions.json` with the updated version number for this pre-release, preserving `manifest.json`. This enables [BRAT](https://github.com/TfTHacker/obsidian42-brat) compatibility.
+When running `semantic-release` on a pre-release branch (e.g. `beta`), the plugin updates only `manifest-beta.json` and `versions.json` with the updated version number for this pre-release, preserving `manifest.json`. This enables [BRAT](https://github.com/TfTHacker/obsidian42-brat) compatibility. Note that _any_ branch can act as a pre-release branch if you configure `semantic-release` accordingly. You might want to make sure it's not configured as an (automatic) "release" branch in the GitHub workflows.
 
 To make BRAT detect your beta versions, choose one approach:
 
