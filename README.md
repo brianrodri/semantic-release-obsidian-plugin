@@ -1,5 +1,7 @@
 # semantic-release-obsidian-plugin
 
+[![CI](https://github.com/brianrodri/semantic-release-obsidian-plugin/actions/workflows/CI.yml/badge.svg)](https://github.com/brianrodri/semantic-release-obsidian-plugin/actions/workflows/CI.yml) [![codecov](https://codecov.io/gh/brianrodri/semantic-release-obsidian-plugin/graph/badge.svg?token=AVS80KF9ZI)](https://codecov.io/gh/brianrodri/semantic-release-obsidian-plugin)
+
 [**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to handle updating Obsidian plugin metadata.
 
 | Step               | Description                                 |
