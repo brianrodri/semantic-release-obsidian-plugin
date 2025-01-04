@@ -14,6 +14,8 @@ jobs:
                   node-version: latest
             - name: Install dependencies
               run: npm clean-install
+              env:
+                  HUSKY: 0
             - name: Audit dependencies
               run: npm audit && npm audit signatures
             - name: Audit code style

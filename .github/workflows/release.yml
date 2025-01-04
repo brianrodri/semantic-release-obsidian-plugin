@@ -22,6 +22,8 @@ jobs:
                   node-version: latest
             - name: Install dependencies
               run: npm clean-install
+              env:
+                  HUSKY: 0
             - name: Release
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
