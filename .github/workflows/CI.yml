@@ -14,9 +14,15 @@ jobs:
                   node-version: latest
             - name: Install dependencies
               run: npm clean-install
+              env:
+                  HUSKY: 0
             - name: Audit dependencies
               run: npm audit && npm audit signatures
             - name: Audit code style
               run: npm run lint
             - name: Audit code coverage
               run: npm run test:coverage
+            - name: Upload code coverage
+              uses: codecov/codecov-action@v5
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
