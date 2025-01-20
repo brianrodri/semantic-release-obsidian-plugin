@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getPluginFiles } from "./util.js";
+import { getPluginFiles } from "./constants.js";
 
 test("plugin files", () => {
     expect(getPluginFiles()).toEqual(
