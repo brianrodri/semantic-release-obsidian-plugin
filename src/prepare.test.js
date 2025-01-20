@@ -1,28 +1,25 @@
-import { writeFile } from "fs/promises";
 import { expect, test, vi } from "vitest";
 import { prepare } from "./prepare.js";
+import { readJSON, writeJSON } from "./json-io.js";
 
-function written(content) {
-    return JSON.stringify(content, null, 4) + "\n";
-}
-
-const FILE_CONTENT = {
-    "package.json": written({ version: "1.0.0" }),
-    "package-lock.json": written({ version: "1.0.0" }),
-    "manifest.json": written({ version: "1.0.0", minAppVersion: "0.15.0" }),
-    "versions.json": written({ "1.0.0": "0.15.0" }),
-};
-
-vi.mock("fs/promises", () => ({
-    readFile: vi.fn((file) => FILE_CONTENT[file]),
-    writeFile: vi.fn(),
-}));
+vi.mock("./json-io.js", async (importOriginal) => {
+    const original = await importOriginal();
+    return { ...original, readJSON: vi.fn(), writeJSON: vi.fn() };
+});
 
 test("writes new version to all files", async () => {
+    const mockData = {
+        "package.json": { version: "1.0.0" },
+        "package-lock.json": { version: "1.0.0" },
+        "manifest.json": { version: "1.0.0", minAppVersion: "0.15.0" },
+        "versions.json": { "1.0.0": "0.15.0" },
+    };
+    vi.mocked(readJSON).mockImplementation((path) => mockData[path]);
+
     await expect(prepare({}, { nextRelease: { version: "2.0.0" } })).resolves.toBeUndefined();
 
-    expect(writeFile).toHaveBeenCalledWith("package.json", written({ version: "2.0.0" }));
-    expect(writeFile).toHaveBeenCalledWith("package-lock.json", written({ version: "2.0.0" }));
-    expect(writeFile).toHaveBeenCalledWith("manifest.json", written({ version: "2.0.0", minAppVersion: "0.15.0" }));
-    expect(writeFile).toHaveBeenCalledWith("versions.json", written({ "1.0.0": "0.15.0", "2.0.0": "0.15.0" }));
+    expect(writeJSON).toHaveBeenCalledWith("package.json", { version: "2.0.0" });
+    expect(writeJSON).toHaveBeenCalledWith("package-lock.json", { version: "2.0.0" });
+    expect(writeJSON).toHaveBeenCalledWith("manifest.json", { version: "2.0.0", minAppVersion: "0.15.0" });
+    expect(writeJSON).toHaveBeenCalledWith("versions.json", { "1.0.0": "0.15.0", "2.0.0": "0.15.0" });
 });
