@@ -1,5 +1,6 @@
-import { allWithAggregateErrors } from "./all-with-aggregate-errors.js";
 import { it, expect, describe } from "vitest";
+
+import { allWithAggregateErrors } from "./all-with-aggregate-errors.js";
 
 describe("awaitAllWithAggregateError", () => {
     it("returns array of values when all promises resolve", async () => {
