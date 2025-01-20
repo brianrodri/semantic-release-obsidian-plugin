@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { getPluginFiles } from "./constants.js";
 import { readJSON, writeJSON } from "./json-io.js";
 
@@ -17,7 +17,7 @@ vi.mock("./json-io.js", async (importOriginal) => {
 describe("prepare step of the plugin", () => {
     afterEach(vi.clearAllMocks);
 
-    test("writes new version to all files", async () => {
+    it("writes new version to all files", async () => {
         const mockData = {
             "package.json": { version: "1.0.0" },
             "package-lock.json": { version: "1.0.0" },
@@ -35,7 +35,7 @@ describe("prepare step of the plugin", () => {
         expect(writeJSON).toHaveBeenCalledWith("versions.json", { "1.0.0": "0.15.0", "2.0.0": "0.15.0" });
     });
 
-    test("refuses to read from unrecognized files", async () => {
+    it("refuses to read from unrecognized files", async () => {
         vi.mocked(getPluginFiles).mockReturnValue(["unrecognized.json"]);
         vi.mocked(readJSON).mockResolvedValue({});
 

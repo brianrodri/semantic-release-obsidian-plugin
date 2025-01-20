@@ -1,8 +1,8 @@
-import { expect, test } from "vitest";
+import { expect, it } from "vitest";
 
 import { getPluginFiles } from "./constants.js";
 
-test("plugin files", () => {
+it("plugin files", () => {
     const files = getPluginFiles();
     expect(files).toContain("package.json");
     expect(files).toContain("package-lock.json");
