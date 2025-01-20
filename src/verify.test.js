@@ -2,7 +2,10 @@ import { stat } from "fs/promises";
 import { expect, test, vi } from "vitest";
 import { verifyConditions } from "./verify.js";
 
-vi.mock("fs/promises", () => ({ stat: vi.fn() }));
+vi.mock("fs/promises", async (importOriginal) => {
+    const original = await importOriginal();
+    return { ...original, stat: vi.fn() };
+});
 
 test("valid files", async () => {
     stat.mockResolvedValue({ isFile: () => true });
