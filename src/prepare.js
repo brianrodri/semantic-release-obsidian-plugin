@@ -5,18 +5,22 @@ import { readJSON, writeJSON } from "./json-io.js";
 export async function prepare(_, context) {
     const version = context.nextRelease.version;
     const fileMap = await loadFileMap();
-    const { minAppVersion } = fileMap.get("manifest.json");
+    const minAppVersion = fileMap.get("manifest.json")?.minAppVersion ?? "1.0.0";
 
-    fileMap.forEach((json, file) => {
-        switch (file) {
+    for (const [path, json] of fileMap) {
+        switch (path) {
+            case "package.json":
+            case "package-lock.json":
+            case "manifest.json":
+                json.version = version;
+                break;
             case "versions.json":
                 json[version] = minAppVersion;
                 break;
             default:
-                json.version = version;
-                break;
+                throw new Error(`Unhandled file: ${path}`);
         }
-    });
+    }
 
     await saveFileMap(fileMap);
 }
