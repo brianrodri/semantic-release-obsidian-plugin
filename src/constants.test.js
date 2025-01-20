@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+
 import { getPluginFiles } from "./constants.js";
 
 test("plugin files", () => {

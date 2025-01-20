@@ -1,6 +1,7 @@
 import { expect, test, vi } from "vitest";
-import { prepare } from "./prepare.js";
 import { readJSON, writeJSON } from "./json-io.js";
+
+import { prepare } from "./prepare.js";
 
 vi.mock("./json-io.js", async (importOriginal) => {
     const original = await importOriginal();

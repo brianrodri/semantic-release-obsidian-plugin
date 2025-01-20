@@ -1,5 +1,6 @@
 import { stat } from "fs/promises";
 import { expect, test, vi } from "vitest";
+
 import { verifyConditions } from "./verify.js";
 
 vi.mock("fs/promises", async (importOriginal) => {
