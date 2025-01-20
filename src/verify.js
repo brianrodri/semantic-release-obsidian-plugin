@@ -1,19 +1,17 @@
-import AggregateError from "aggregate-error";
 import { stat } from "fs/promises";
 import { getPluginFiles } from "./constants.js";
+import { allWithAggregateErrors } from "./all-with-aggregate-errors.js";
 
 export async function verifyConditions() {
-    const outcomes = await Promise.allSettled(getPluginFiles().map(verifyIsFile));
-    const errors = outcomes.filter((o) => o.status === "rejected").map((o) => o.reason);
-
-    if (errors.length > 0) {
-        throw new AggregateError(errors);
-    }
+    const filePaths = getPluginFiles();
+    await allWithAggregateErrors(
+        filePaths.map(verifyIsFile),
+        `Failed to verify ${filePaths.length} file(s): ${filePaths.join(", ")}`,
+    );
 }
 
 async function verifyIsFile(file) {
     const fileStat = await stat(file);
-
     if (!fileStat.isFile()) {
         throw new Error(`Not a file: "${file}"`);
     }

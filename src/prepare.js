@@ -1,3 +1,4 @@
+import { allWithAggregateErrors } from "./all-with-aggregate-errors.js";
 import { getPluginFiles } from "./constants.js";
 import { readJSON, writeJSON } from "./json-io.js";
 
@@ -21,13 +22,21 @@ export async function prepare(_, context) {
 }
 
 async function loadFileMap() {
-    const entries = await Promise.all(getPluginFiles().map(async (path) => [path, await readJSON(path)]));
+    const filePaths = getPluginFiles();
+    const entries = await allWithAggregateErrors(
+        filePaths.map(async (path) => [path, await readJSON(path)]),
+        `Failed to load ${filePaths.length} file(s): ${filePaths.join("\n")}`,
+    );
 
     return new Map(entries);
 }
 
 async function saveFileMap(fileMap) {
+    const filePaths = [...fileMap.keys()];
     const entries = [...fileMap.entries()];
 
-    await Promise.all(entries.map(async ([path, json]) => await writeJSON(path, json)));
+    await allWithAggregateErrors(
+        entries.map(async ([path, json]) => await writeJSON(path, json)),
+        `Failed to save ${filePaths.length} file(s): ${filePaths.join(", ")}`,
+    );
 }
