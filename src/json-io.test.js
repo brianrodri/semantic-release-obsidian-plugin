@@ -20,11 +20,14 @@ describe("JSON input/output", () => {
 
     it("writes with fs/promises", async () => {
         await expect(writeJSON("path", { abc: 123 })).resolves.toBeUndefined();
-        const expected = `{
-            "abc": 123
-        }
-        `.replaceAll(/^ {8}/gm, ""); // Removes code indentation.
 
-        expect(writeFile).toHaveBeenCalledWith("path", expected);
+        expect(writeFile).toHaveBeenCalledWith(
+            "path",
+            `\
+{
+    "abc": 123
+}
+`,
+        );
     });
 });

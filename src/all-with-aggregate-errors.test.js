@@ -18,22 +18,45 @@ describe("awaitAllWithAggregateError", () => {
     it("creates an aggregate error message", async () => {
         const promises = [
             Promise.reject(new Error("Uh-oh!")),
-            Promise.reject(new Error("Ugh!\nA really long\n\tmessage..!")),
+            Promise.reject(
+                new Error(`\
+Ugh!
+A really long
+	multi-
+line message..!`),
+            ),
         ];
 
         await expect(allWithAggregateErrors(promises)).rejects.toThrowError(
-            ["-\tUh-oh!", "-\tUgh!", "\tA really long", "\t\tmessage..!"].join("\n"),
+            `\
+-	Uh-oh!
+-	Ugh!
+	A really long
+		multi-
+	line message..!`,
         );
     });
 
     it("prepends aggregate error message with input message", async () => {
         const promises = [
             Promise.reject(new Error("Uh-oh!")),
-            Promise.reject(new Error("Ugh!\nA really long\n\tmessage..!")),
+            Promise.reject(
+                new Error(`\
+Ugh!
+A really long
+	multi-
+line message..!`),
+            ),
         ];
 
         await expect(allWithAggregateErrors(promises, "oh man!")).rejects.toThrowError(
-            ["oh man!", "-\tUh-oh!", "-\tUgh!", "\tA really long", "\t\tmessage..!"].join("\n"),
+            `\
+oh man!
+-	Uh-oh!
+-	Ugh!
+	A really long
+		multi-
+	line message..!`,
         );
     });
 });
