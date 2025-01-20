@@ -3,7 +3,9 @@ import { expect, test } from "vitest";
 import { getPluginFiles } from "./constants.js";
 
 test("plugin files", () => {
-    expect(getPluginFiles()).toEqual(
-        expect.arrayContaining(["package.json", "package-lock.json", "manifest.json", "versions.json"]),
-    );
+    const files = getPluginFiles();
+    expect(files).toContain("package.json");
+    expect(files).toContain("package-lock.json");
+    expect(files).toContain("manifest.json");
+    expect(files).toContain("versions.json");
 });
