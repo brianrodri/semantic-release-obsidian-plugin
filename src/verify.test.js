@@ -1,5 +1,5 @@
 import { stat } from "fs/promises";
-import { expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { verifyConditions } from "./verify.js";
 
@@ -8,20 +8,24 @@ vi.mock("fs/promises", async (importOriginal) => {
     return { ...original, stat: vi.fn() };
 });
 
-it("valid files", async () => {
-    stat.mockResolvedValue({ isFile: () => true });
+describe("verify step of the plugin", () => {
+    afterEach(vi.clearAllMocks);
 
-    await expect(verifyConditions()).resolves.toBeUndefined();
-});
+    it("valid files", async () => {
+        stat.mockResolvedValue({ isFile: () => true });
 
-it("invalid files", async () => {
-    stat.mockResolvedValue({ isFile: () => false });
+        await expect(verifyConditions()).resolves.toBeUndefined();
+    });
 
-    await expect(verifyConditions()).rejects.toThrowError(/Not a file/);
-});
+    it("invalid files", async () => {
+        stat.mockResolvedValue({ isFile: () => false });
 
-it("missing files", async () => {
-    stat.mockRejectedValue(new Error("File is missing"));
+        await expect(verifyConditions()).rejects.toThrowError(/Not a file/);
+    });
 
-    await expect(verifyConditions()).rejects.toThrowError(/File is missing/);
+    it("missing files", async () => {
+        stat.mockRejectedValue(new Error("File is missing"));
+
+        await expect(verifyConditions()).rejects.toThrowError(/File is missing/);
+    });
 });
