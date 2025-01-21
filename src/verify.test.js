@@ -12,19 +12,19 @@ describe("verify step of the plugin", () => {
     afterEach(vi.clearAllMocks);
 
     it("valid files", async () => {
-        stat.mockResolvedValue({ isFile: () => true });
+        vi.mocked(stat).mockResolvedValue({ isFile: () => true });
 
         await expect(verifyConditions()).resolves.toBeUndefined();
     });
 
     it("invalid files", async () => {
-        stat.mockResolvedValue({ isFile: () => false });
+        vi.mocked(stat).mockResolvedValue({ isFile: () => false });
 
         await expect(verifyConditions()).rejects.toThrowError(/Not a file/);
     });
 
     it("missing files", async () => {
-        stat.mockRejectedValue(new Error("File is missing"));
+        vi.mocked(stat).mockRejectedValue(new Error("File is missing"));
 
         await expect(verifyConditions()).rejects.toThrowError(/File is missing/);
     });
