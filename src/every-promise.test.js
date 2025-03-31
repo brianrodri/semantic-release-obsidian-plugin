@@ -1,18 +1,18 @@
 import { it, expect, describe } from "vitest";
 
-import { allWithAggregateErrors } from "./all-with-aggregate-errors.js";
+import { everyPromise } from "./every-promise.js";
 
-describe("awaitAllWithAggregateError", () => {
+describe(`${everyPromise.name}`, () => {
     it("returns array of values when all promises resolve", async () => {
         const promises = [1, 2, 3, 4, 5].map((i) => Promise.resolve(i));
 
-        await expect(allWithAggregateErrors(promises)).resolves.toEqual([1, 2, 3, 4, 5]);
+        await expect(everyPromise(promises)).resolves.toEqual([1, 2, 3, 4, 5]);
     });
 
     it("throws if any promise rejects", async () => {
         const promises = [Promise.resolve(1), Promise.reject(new Error("Rejected")), Promise.resolve(3)];
 
-        await expect(allWithAggregateErrors(promises)).rejects.toThrowError();
+        await expect(everyPromise(promises)).rejects.toThrowError();
     });
 
     it("creates an aggregate error message", async () => {
@@ -27,7 +27,7 @@ line message..!`),
             ),
         ];
 
-        await expect(allWithAggregateErrors(promises)).rejects.toThrowError(
+        await expect(everyPromise(promises)).rejects.toThrowError(
             `\
 -	Uh-oh!
 -	Ugh!
@@ -49,7 +49,7 @@ line message..!`),
             ),
         ];
 
-        await expect(allWithAggregateErrors(promises, "oh man!")).rejects.toThrowError(
+        await expect(everyPromise(promises, "oh man!")).rejects.toThrowError(
             `\
 oh man!
 -	Uh-oh!

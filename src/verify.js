@@ -1,10 +1,10 @@
 import { stat } from "fs/promises";
 import { getPluginFiles } from "./constants.js";
-import { allWithAggregateErrors } from "./all-with-aggregate-errors.js";
+import { everyPromise } from "./every-promise.js";
 
 export async function verifyConditions() {
     const filePaths = getPluginFiles();
-    await allWithAggregateErrors(
+    await everyPromise(
         filePaths.map(verifyIsFile),
         `Failed to verify ${filePaths.length} file(s): ${filePaths.join(", ")}`,
     );

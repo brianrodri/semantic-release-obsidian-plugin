@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "fs/promises";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { readJSON, writeJSON } from "./json-io.js";
+import { readJSON, writeJSON } from "./json-promises.js";
 
 vi.mock("fs/promises", async (importOriginal) => {
     const original = await importOriginal();

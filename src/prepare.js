@@ -1,6 +1,6 @@
-import { allWithAggregateErrors } from "./all-with-aggregate-errors.js";
+import { everyPromise } from "./every-promise.js";
 import { getPluginFiles } from "./constants.js";
-import { readJSON, writeJSON } from "./json-io.js";
+import { readJSON, writeJSON } from "./json-promises.js";
 
 export async function prepare(_, context) {
     const version = context.nextRelease.version;
@@ -27,9 +27,9 @@ export async function prepare(_, context) {
 
 async function loadFileMap() {
     const filePaths = getPluginFiles();
-    const entries = await allWithAggregateErrors(
+    const entries = await everyPromise(
         filePaths.map(async (path) => [path, await readJSON(path)]),
-        `Failed to load ${filePaths.length} file(s): ${filePaths.join("\n")}`,
+        `Failed to load ${filePaths.length} file(s): ${filePaths.join(", ")}`,
     );
 
     return new Map(entries);
@@ -39,7 +39,7 @@ async function saveFileMap(fileMap) {
     const filePaths = [...fileMap.keys()];
     const entries = [...fileMap.entries()];
 
-    await allWithAggregateErrors(
+    await everyPromise(
         entries.map(async ([path, json]) => await writeJSON(path, json)),
         `Failed to save ${filePaths.length} file(s): ${filePaths.join(", ")}`,
     );
