@@ -1,4 +1,7 @@
 import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
 
-/** @type { import("eslint").Linter.Config[] } */
-export default [{ ignores: ["coverage/", "node_modules/"] }, js.configs.recommended];
+export default defineConfig([
+    { ignores: ["coverage/", "node_modules/"] },
+    { plugins: { js }, extends: ["js/recommended"] },
+]);
