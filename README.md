@@ -17,7 +17,7 @@ $ npm install brianrodri/semantic-release-obsidian-plugin --save-dev
 
 ## Usage
 
-The plugin can be configured in the [`semantic-release` configuration file](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration):
+The plugin can be configured in the [`semantic-release` configuration file](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#plugins):
 
 ```json
 {
