@@ -18,7 +18,7 @@ export async function prepare(_, context) {
                 json[version] = minAppVersion;
                 break;
             default:
-                throw new Error(`Unhandled file: ${path}`);
+                throw new Error(`unexpected file: ${path}`);
         }
     }
 

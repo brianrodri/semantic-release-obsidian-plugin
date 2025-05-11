@@ -39,7 +39,7 @@ describe("prepare step of the plugin", () => {
         vi.mocked(getPluginFiles).mockReturnValue(["unrecognized.json"]);
         vi.mocked(readJSON).mockResolvedValue({});
 
-        await expect(prepare({}, { nextRelease: { version: "2.0.0" } })).rejects.toThrowError(/Unhandled file/);
+        await expect(prepare({}, { nextRelease: { version: "2.0.0" } })).rejects.toThrowError(/unexpected file/);
 
         expect(writeJSON).toHaveBeenCalledTimes(0);
     });
